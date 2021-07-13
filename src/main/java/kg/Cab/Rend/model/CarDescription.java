@@ -21,6 +21,4 @@ public class CarDescription {
     private String transmission;
     private double fuelConsumption;
     private String lang;
-
-
 }

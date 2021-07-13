@@ -24,11 +24,13 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private Car car;
-    private String pickUpLocation;
-    private String returnLocation;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
+    private LocationRend locationRend;
     private Date startDateRent;
     private Date endDateRent;
-    private BigDecimal totalSum;
+    private BigDecimal totalSum = car.getRendPrice().getPrice();
     private String comment;
+
 
 }

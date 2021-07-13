@@ -1,7 +1,10 @@
 package kg.Cab.Rend.service;
 
-import kg.Cab.Rend.model.CarDescription;
+import kg.Cab.Rend.model.dto.CarDescriptionDto;
+
+import java.util.List;
 
 public interface CarDescriptionService {
-    public CarDescription saveCarDescription(CarDescription carDescription);
+    public CarDescriptionDto saveCarDescription(CarDescriptionDto carDescription);
+    List<CarDescriptionDto> findAll();
 }

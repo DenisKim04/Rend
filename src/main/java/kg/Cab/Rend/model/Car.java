@@ -17,7 +17,7 @@ public class Car {
     private Long id;
     private String name;
     private Short year;
-    private Boolean active;
+    private StatusCar statusCar;
     private Byte seats;
     private Byte baggage;
     private Byte doors;
@@ -27,9 +27,9 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carDescription_id")
     private CarDescription carDescription;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoryCar_id")
     private CategoryCar categoryCar;
 
 
-    }
+}

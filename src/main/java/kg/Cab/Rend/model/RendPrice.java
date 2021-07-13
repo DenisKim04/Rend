@@ -16,5 +16,7 @@ public class RendPrice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
     private BigDecimal price;
+    private Data startDate;
+    private Data endDate;
 
 }

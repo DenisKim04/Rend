@@ -18,7 +18,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByName(String name);
 
-    List<Car> findByStatus(StatusCar status);
 
     List<Car> findByYear(Short year);
 

@@ -4,10 +4,7 @@ import kg.Cab.Rend.model.CategoryCar;
 import kg.Cab.Rend.model.dto.CategoryCarDto;
 import kg.Cab.Rend.service.CategoryCarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,12 +15,12 @@ public class CategoryCarController {
     private CategoryCarService categoryCarService;
 
     @PostMapping("/saveCategoryCar")
-    public CategoryCarDto saveCategoryCar(CategoryCar categoryCar) {
+    public CategoryCarDto saveCategoryCar(@RequestBody CategoryCar categoryCar) {
         return categoryCarService.saveCategoryCar(categoryCar);
     }
 
     @GetMapping("/findCategoryCar")
-    public List<CategoryCarDto> findCategoryCar(List<CategoryCarDto> categoryCarDto) {
+    public List<CategoryCarDto> findCategoryCar(@RequestBody List<CategoryCarDto> categoryCarDto) {
         return categoryCarService.findCategoryCar();
     }
 }

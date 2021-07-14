@@ -2,14 +2,13 @@ package kg.Cab.Rend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -39,11 +39,6 @@ public class CarServiceImpl implements CarService {
         return CarMapper.INSTANCE.listCatDto(cars);
     }
 
-    @Override
-    public List<CarDto> allStatusCars(StatusCar status) {
-        List<Car> cars = carRepository.findByStatus(status);
-        return CarMapper.INSTANCE.listCatDto(cars);
-    }
 
     @Override
     public List<CarDto> allYears(Short year) {

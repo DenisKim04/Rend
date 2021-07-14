@@ -15,7 +15,6 @@ public interface CarService {
 
     public List<CarDto> allName(String name);
 
-    public List<CarDto> allStatusCars(StatusCar status);
 
     public List<CarDto> allYears(Short year);
 

@@ -8,28 +8,30 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
-    @Query(value = "SELECT * FROM users u WHERE u.name ?1",nativeQuery = true)
+    @Query(value = "SELECT * FROM users u WHERE u.name = ?1", nativeQuery = true)
     public List<User> findUserByName(@Param("name") String name);
 
-    @Query(value = "SELECT * FROM users u WHERE u.last_name ?1",nativeQuery = true)
+    @Query(value = "SELECT * FROM users u WHERE u.last_name = ?1", nativeQuery = true)
     public List<User> findUserByLatsName(@Param("last_name") String lastName);
 
-    @Query(value = "SELECT * FROM users u WHERE u.phone_number ?1",nativeQuery = true)
+    @Query(value = "SELECT * FROM users u WHERE u.phone_number = ?1", nativeQuery = true)
     public User findUserByPhoneNumber(@Param("phone_number") String phoneNumber);
 
-    @Query(value = "SELECT * FROM users u WHERE u.email",nativeQuery = true)
+    @Query(value = "SELECT * FROM users u WHERE u.email = ?1", nativeQuery = true)
     public User finUserByEmail(@Param("email") String email);
 
-
-    @Query(value = "UPDATE  users u SET u.name = : name, u.last_name, u.phone_number = :phone_number,u.email= :email",nativeQuery = true)
-    public User updateUser(@Param("name")String name,@Param("last_name")String lastName,
-                           @Param("phone_number") String phone_number,@Param("email")String email);
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE  users u SET u.name = :name, u.last_name= :last_name, u.phone_number = :phone_number,u.email= :email", nativeQuery = true)
+    public User updateUser(@Param("name") String name, @Param("last_name") String lastName,
+                           @Param("phone_number") String phone_number, @Param("email") String email);
 
 }
 

@@ -7,17 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
 public interface RendPriceRepository extends JpaRepository<RendPrice, Long> {
-    public RendPrice saveRendPrice();
 
-    public List<RendPrice> sortByPrice(RendPrice rendPrice);
 
+
+
+    @Transactional
     @Modifying
-    @Query(value = "UPDATE  rend_price rp SET sp.price = ?1")
-    public RendPrice updatePrice(BigDecimal price);
+    @Query(value = "UPDATE  rend_price rp SET rp.price = ?1", nativeQuery = true)
+    public RendPrice updatePrice(@Param("price") BigDecimal price);
 
 }

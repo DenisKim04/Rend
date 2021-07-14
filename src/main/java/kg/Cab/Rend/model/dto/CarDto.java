@@ -16,7 +16,8 @@ public class CarDto {
     private Byte seats;
     private Byte baggage;
     private Byte doors;
-    private RendPrice rendPrice;
-    private CarDescription carDescription;
-    private CategoryCar categoryCar;
+    private String picker;
+    private RendPriceDto rendPrice;
+    private CarDescriptionDto carDescription;
+    private CategoryCarDto categoryCar;
 }

@@ -21,6 +21,7 @@ public class Car {
     private Byte seats;
     private Byte baggage;
     private Byte doors;
+    private String picker;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id")
     private RendPrice rendPrice;

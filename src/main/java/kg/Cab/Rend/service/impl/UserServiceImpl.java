@@ -17,11 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto userDto) {
-       User user = UserMapper.INSTANCE.toUser(userDto);
+        User user = UserMapper.INSTANCE.toUser(userDto);
         User user1 = userRepository.save(user);
         return UserMapper.INSTANCE.toUserDto(user1);
     }
-
 
 
     @Override
@@ -32,36 +31,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findUserByLatsName(String lastName) {
-        List<User> users = userRepository.findUserByLatsName(lastName);
-        return UserMapper.INSTANCE.toUserDtoList(users);
+
+        List<User> users1 = userRepository.findUserByLatsName(lastName);
+        return UserMapper.INSTANCE.toUserDtoList(users1);
     }
 
     @Override
     public UserDto findUserByPhoneNumber(String phoneNumber) {
 
-
-        User user = userRepository.findUserByPhoneNumber(phoneNumber);
-        return UserMapper.INSTANCE.toUserDto(user);
+        User user1 = userRepository.findUserByPhoneNumber(phoneNumber);
+        return UserMapper.INSTANCE.toUserDto(user1);
     }
 
     @Override
     public UserDto finUserByEmail(String email) {
-        User user = userRepository.finUserByEmail(email);
-        return UserMapper.INSTANCE.toUserDto(user);
+
+        User user2 = userRepository.finUserByEmail(email);
+        return UserMapper.INSTANCE.toUserDto(user2);
     }
 
     @Override
     public UserDto upDataUser(UserDto userDto, Long id) {
-    User user = UserMapper.INSTANCE.toUser(userDto);
+        User user = UserMapper.INSTANCE.toUser(userDto);
         if (userRepository.existsById(id)) {
             user = userRepository.findById(id).get();
             user.setName(user.getName());
             user.setEmail(user.getLastName());
             user.setPhoneNumber(user.getPhoneNumber());
             user.setEmail(user.getEmail());
-            user = userRepository.updateUser(user.getName(), user.getLastName(),user.getPhoneNumber(),user.getEmail());
+            user = userRepository.updateUser(user.getName(), user.getLastName(), user.getPhoneNumber(), user.getEmail());
             return UserMapper.INSTANCE.toUserDto(user);
-        }else {
+        } else {
             System.out.println("Id is not found");
         }
         return null;

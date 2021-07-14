@@ -4,10 +4,7 @@ import kg.Cab.Rend.model.LocationRend;
 import kg.Cab.Rend.model.dto.LocationRendDto;
 import kg.Cab.Rend.service.LocationRendService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class LocationRendController {
     private LocationRendService locationRendService;
 
     @PostMapping("/saveLocationRend")
-    public LocationRendDto save(LocationRendDto locationRendDto) {
+    public LocationRendDto save(@RequestBody LocationRendDto locationRendDto) {
         return locationRendService.save(locationRendDto);
     }
 

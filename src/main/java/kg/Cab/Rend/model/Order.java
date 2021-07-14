@@ -29,7 +29,7 @@ public class Order {
     private LocationRend locationRend;
     private Date startDateRent;
     private Date endDateRent;
-    private BigDecimal totalSum = car.getRendPrice().getPrice();
+    private double totalSum ;
     private String comment;
 
 

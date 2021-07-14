@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/vi/user")
+@RequestMapping(value = "/api/v1/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PatchMapping("/saveUser")
+    @PostMapping("/saveUser")
     public UserDto saveUser(UserDto user) {
         return userService.saveUser(user);
     }
@@ -24,7 +24,7 @@ public class UserController {
         return userService.findUserByName(name);
     }
 
-    @GetMapping("/findUserByName")
+    @GetMapping("/findUserByLastName")
     public List<UserDto> findUserByLastName(String lastName) {
         return userService.findUserByLatsName(lastName);
     }
@@ -39,8 +39,8 @@ public class UserController {
         return userService.finUserByEmail(email);
     }
 
-    @PutMapping("/upDataUserByPhoneNumber")
-    public UserDto upDataUserByPhoneNumber(UserDto userDto, Long id) {
+    @PutMapping("/upDataUser")
+    public UserDto upDataUser(@RequestBody UserDto userDto, Long id) {
         return userService.upDataUser(userDto, id);
     }
 }

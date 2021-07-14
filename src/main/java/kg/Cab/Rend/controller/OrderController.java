@@ -1,16 +1,9 @@
 package kg.Cab.Rend.controller;
 
-import kg.Cab.Rend.dao.Repository.OrderRepository;
-import kg.Cab.Rend.model.Order;
-import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.model.dto.OrderDto;
-import kg.Cab.Rend.model.dto.UserDto;
 import kg.Cab.Rend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +14,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/saveOrder")
-    public OrderDto saveOrder(OrderDto orderDto) {
+    public OrderDto saveOrder(@RequestBody OrderDto orderDto) {
         return orderService.saveOrder(orderDto);
     }
 

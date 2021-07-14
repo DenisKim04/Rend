@@ -32,12 +32,7 @@ public class CarController {
     public List<CarDto> findByName(@RequestBody String car) {
         return carService.allName(car);
     }
-
-    @GetMapping("/findActiveCar")
-    public List<CarDto> findStatus(@RequestBody StatusCar statusCar) {
-        return carService.allStatusCars(statusCar);
-
-    }
+    
 
     @GetMapping("/findYears")
     public List<CarDto> findYearsCar(@RequestBody Short year) {

@@ -14,7 +14,7 @@ public interface OrderMapper {
     //->
     Order toOrder(OrderDto orderDto);
 
-    List<Order> ListToOrder();
+    
 
     //<-
     OrderDto orderToDto(Order order);

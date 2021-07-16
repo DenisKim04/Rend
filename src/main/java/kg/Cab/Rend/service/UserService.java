@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserService {
     public UserDto saveUser(UserDto userDto);
 
+        List<UserDto> findAll();
+
     public List<UserDto> findUserByName(String userDto);
 
     public List<UserDto> findUserByLatsName(String lastName);

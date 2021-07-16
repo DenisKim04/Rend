@@ -22,6 +22,12 @@ public class UserServiceImpl implements UserService {
         return UserMapper.INSTANCE.toUserDto(user1);
     }
 
+    @Override
+    public List<UserDto> findAll() {
+        List<User> user = userRepository.findAll();
+        return UserMapper.INSTANCE.toUserDtoList(user);
+    }
+
 
     @Override
     public List<UserDto> findUserByName(String name) {
@@ -54,13 +60,13 @@ public class UserServiceImpl implements UserService {
     public UserDto upDataUser(UserDto userDto, Long id) {
         User user = UserMapper.INSTANCE.toUser(userDto);
         if (userRepository.existsById(id)) {
-            user = userRepository.findById(id).get();
-            user.setName(user.getName());
-            user.setEmail(user.getLastName());
-            user.setPhoneNumber(user.getPhoneNumber());
-            user.setEmail(user.getEmail());
-            user = userRepository.updateUser(user.getName(), user.getLastName(), user.getPhoneNumber(), user.getEmail());
-            return UserMapper.INSTANCE.toUserDto(user);
+           User user1 = userRepository.findById(id).get();
+            user1.setName(user.getName());
+            user1.setEmail(user.getLastName());
+            user1.setPhoneNumber(user.getPhoneNumber());
+            user1.setEmail(user.getEmail());
+            user1 = userRepository.updateUser(user.getName(), user.getLastName(), user.getPhoneNumber(), user.getEmail());
+            return UserMapper.INSTANCE.toUserDto(user1);
         } else {
             System.out.println("Id is not found");
         }

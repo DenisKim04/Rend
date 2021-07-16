@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface CarDescriptionService {
     public CarDescriptionDto saveCarDescription(CarDescriptionDto carDescription);
+
     List<CarDescriptionDto> findAll();
+
+    CarDescriptionDto update(CarDescriptionDto carDescriptionDto,Long id);
 }

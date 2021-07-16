@@ -8,9 +8,7 @@ import kg.Cab.Rend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -31,6 +29,16 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> findAll() {
         List<Car> cars = carRepository.findAll();
         return CarMapper.INSTANCE.listCatDto(cars);
+    }
+
+    @Override
+    public CarDto findById(Long id) {
+        Car car = carRepository.findById(id).orElse(null);
+        if(car == null){
+            throw new RuntimeException("Not found");
+
+        }
+        return CarMapper.INSTANCE.carDto(car);
     }
 
     @Override
@@ -85,7 +93,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDto> findByPrice(BigDecimal price) {
+    public List<CarDto> findByPrice(double price) {
         List<Car> cars = carRepository.findByPrice(price);
         return CarMapper.INSTANCE.listCatDto(cars);
     }
@@ -94,5 +102,26 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> findByYears(Short year) {
         List<Car> cars = carRepository.findByYears(year);
         return CarMapper.INSTANCE.listCatDto(cars);
+    }
+
+    @Override
+    public CarDto update(CarDto carDto, Long id) {
+        Car car = CarMapper.INSTANCE.car(carDto);
+        if (carRepository.existsById(id)) {
+            Car car1 = carRepository.findById(id).get();
+            car1.setName(car.getName());
+            car1.setYear(car.getYear());
+            car1.setStatusCar(car.getStatusCar());
+            car1.setSeats(car.getSeats());
+            car1.setBaggage(car.getBaggage());
+            car1.setDoors(car.getDoors());
+            car1.setPicketer(car.getPicketer());
+            car1 = carRepository.update(car.getName(), car.getYear(), car.getStatusCar(),
+                    car.getSeats(), car.getBaggage(), car.getDoors(), car.getPicketer());
+            return CarMapper.INSTANCE.carDto(car1);
+        }else {
+            System.out.println("Id is not found");
+        }
+        return null;
     }
 }

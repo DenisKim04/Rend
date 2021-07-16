@@ -2,9 +2,7 @@ package kg.Cab.Rend.service;
 
 import kg.Cab.Rend.model.*;
 import kg.Cab.Rend.model.dto.CarDto;
-import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -12,6 +10,8 @@ public interface CarService {
     public CarDto saveCar(CarDto car);
 
     public List<CarDto> findAll();
+
+    CarDto findById(Long id);
 
     public List<CarDto> allName(String name);
 
@@ -29,7 +29,11 @@ public interface CarService {
     List<CarDto> findByCarDescription(CarDescription carDescription);
 
     List<CarDto> findByCategoryCar(CategoryCar categoryCar);
-    List<CarDto>findByPrice(BigDecimal price);
-    List<CarDto>findByYears(Short year);
+
+    List<CarDto> findByPrice(double price);
+
+    List<CarDto> findByYears(Short year);
+
+    CarDto update(CarDto carDto, Long id);
 
 }

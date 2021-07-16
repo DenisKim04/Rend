@@ -1,5 +1,7 @@
 package kg.Cab.Rend.controller;
 
+import io.swagger.annotations.Api;
+import kg.Cab.Rend.configuretions.Swagger2Config;
 import kg.Cab.Rend.model.*;
 import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.service.CarService;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Api(tags = {Swagger2Config.CAR})
 @RestController
 @RequestMapping("/api/v1/car")
+@CrossOrigin
 public class CarController {
     @Autowired
     private CarService carService;
@@ -29,29 +33,29 @@ public class CarController {
     }
 
     @GetMapping("/findName")
-    public List<CarDto> findByName(@RequestBody String car) {
+    public List<CarDto> findByName(@RequestParam String car) {
         return carService.allName(car);
     }
     
 
     @GetMapping("/findYears")
-    public List<CarDto> findYearsCar(@RequestBody Short year) {
+    public List<CarDto> findYearsCar(@RequestParam Short year) {
         return carService.allYears(year);
 
     }
 
     @GetMapping("/findSeats")
-    public List<CarDto> findSeatsInCar(@RequestBody Byte seats) {
+    public List<CarDto> findSeatsInCar(@RequestParam Byte seats) {
         return carService.allSeats(seats);
     }
 
     @GetMapping("/findBaggage")
-    public List<CarDto> findBaggage(@RequestBody Byte baggage) {
+    public List<CarDto> findBaggage(@RequestParam Byte baggage) {
         return carService.allBaggage(baggage);
     }
 
     @GetMapping("/findDoors")
-    public List<CarDto> findDoors(@RequestBody Byte doors) {
+    public List<CarDto> findDoors(@RequestParam Byte doors) {
         return carService.allDoor(doors);
     }
 
@@ -71,14 +75,15 @@ public class CarController {
     }
 
     @GetMapping("/findByPrice")
-    public List<CarDto> findPriceCar(@RequestBody BigDecimal price) {
+    public List<CarDto> findPriceCar(@RequestParam double price) {
         return carService.findByPrice(price);
     }
 
     @GetMapping("/findByYear")
-    public List<CarDto> findYearCar(@RequestBody Short year) {
+    public List<CarDto> findYearCar(@RequestParam Short year) {
         return carService.findByYears(year);
     }
+
 
 }
 

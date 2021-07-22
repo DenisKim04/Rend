@@ -5,13 +5,9 @@ import kg.Cab.Rend.configuretions.Swagger2Config;
 import kg.Cab.Rend.model.*;
 import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.service.CarService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Api(tags = {Swagger2Config.CAR})
@@ -83,15 +79,21 @@ public class CarController {
     public List<CarDto> findYearCar(@RequestParam Short year) {
         return carService.findByYears(year);
     }
+
+    @GetMapping("/sortByCategory")
+        public List<CarDto> sortByCategory(){
+        return carService.sortByCategory();
+    }
     @PutMapping("/UpdateCar")
     public CarDto update(@RequestBody CarDto carDto,Long id){
         return carService.update(carDto,id);
     }
 
     @PutMapping("/updateActive")
-    public  CarDto updateActive(@RequestParam boolean active,@RequestParam Long id){
-        return carService.updateActive(active,id);
+    public  CarDto updateActive(@RequestParam StatusCar statusCar ,@RequestParam boolean active,@RequestParam Long id){
+        return carService.updateActive(statusCar, active,id);
     }
+
 
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface CategoryCarService {
     CategoryCarDto findById(Long id);
 
-    public CategoryCarDto saveCategoryCar(CategoryCar car);
+    public CategoryCarDto saveCategoryCar(CategoryCarDto car);
 
     List<CategoryCarDto> findCategoryCar();
 }

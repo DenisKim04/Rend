@@ -34,7 +34,8 @@ public class Order {
     private Date startDateRent;
     private Date endDateRent;
     private double totalSum ;
-
+    @Column(name = "active_order")
+    private boolean activeOrder = true;
 
 
 }

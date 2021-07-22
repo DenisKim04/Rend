@@ -41,6 +41,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car>findByYears(@Param("year")Short year);
     @Query(value = "SELECT * FROM cars c WHERE c.baggage >= ?1", nativeQuery = true)
     List<Car>findBaggage(@Param("baggage")Byte baggage);
+    @Query(value = "SELECT * FROM car cr ORDER BY cr.category_car_id",nativeQuery = true)
+    List<Car> findAllByCategory();
     @Transactional
     @Modifying
     @Query(value = "UPDATE  cars c SET c.name = :name, c.year= :year, c.statusCar = :statusCar, c.seats= :seats, c.baggage = :baggage, c.doors = :doors, c.picketer = :picketer,", nativeQuery = true)

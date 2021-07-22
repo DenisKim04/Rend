@@ -23,8 +23,9 @@ public class CategoryCarServiceImpl implements CategoryCarService {
     }
 
     @Override
-    public CategoryCarDto saveCategoryCar(CategoryCar car) {
-      CategoryCar car1 = categoryCarRepository.save(car);
+    public CategoryCarDto saveCategoryCar(CategoryCarDto car) {
+        CategoryCar categoryCar = CategoryCarMapper.INSTANCE.categoryCarDto(car);
+      CategoryCar car1 = categoryCarRepository.save(categoryCar);
         return CategoryCarMapper.INSTANCE.categoryCarDto(car1);
     }
 

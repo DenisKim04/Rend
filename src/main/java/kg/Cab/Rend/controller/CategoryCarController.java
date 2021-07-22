@@ -18,7 +18,7 @@ public class CategoryCarController {
     private CategoryCarService categoryCarService;
 
     @PostMapping("/saveCategoryCar")
-    public CategoryCarDto saveCategoryCar(@RequestBody CategoryCar categoryCar) {
+    public CategoryCarDto saveCategoryCar(@RequestBody CategoryCarDto categoryCar) {
         return categoryCarService.saveCategoryCar(categoryCar);
     }
 

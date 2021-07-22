@@ -144,9 +144,10 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto updateActive(boolean active, Long id) {
+    public CarDto updateActive(StatusCar statusCar,boolean active, Long id) {
         if(carRepository.existsById(id)){
             Car car = carRepository.findById(id).get();
+            car.setStatusCar(statusCar);
             car.setActive(active);
             car = carRepository.save(car);
             return CarMapper.INSTANCE.carDto(car);
@@ -154,5 +155,11 @@ public class CarServiceImpl implements CarService {
             System.out.println("Id is not fund");
         }
         return null;
+    }
+
+    @Override
+    public List<CarDto> sortByCategory() {
+        List<Car> carList = carRepository.findAllByCategory();
+        return CarMapper.INSTANCE.listCatDto(carList);
     }
 }

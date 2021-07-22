@@ -26,5 +26,9 @@ public class OrderController {
     public List<OrderDto> find() {
         return orderService.find();
     }
+    @PutMapping("/backCar")
+    public OrderDto returnCar(OrderDto orderDto,Long id){
+        return orderService.returnOrder(orderDto,id);
+    }
 
 }

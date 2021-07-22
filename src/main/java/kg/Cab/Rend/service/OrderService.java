@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderService {
     public OrderDto saveOrder(GetFromFront getFromFront);
 
+    OrderDto returnOrder(OrderDto orderDto,Long id );
     List<OrderDto> find ();
 
 

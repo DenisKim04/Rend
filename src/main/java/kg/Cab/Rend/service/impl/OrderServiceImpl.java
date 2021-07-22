@@ -1,8 +1,11 @@
 package kg.Cab.Rend.service.impl;
 
 import kg.Cab.Rend.dao.Repository.*;
+import kg.Cab.Rend.mapper.CarMapper;
 import kg.Cab.Rend.mapper.OrderMapper;
+import kg.Cab.Rend.model.Car;
 import kg.Cab.Rend.model.Order;
+import kg.Cab.Rend.model.StatusCar;
 import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.model.dto.LocationRendDto;
 import kg.Cab.Rend.model.dto.OrderDto;
@@ -13,13 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -36,44 +35,45 @@ public class OrderServiceImpl implements OrderService {
     private LocationRendService locationRendService;
 
 
-//    public UserDto GetFromFrontToUser (GetFromFront getFromFront){
-//        UserDto user = new UserDto();
-//        user.setName(getFromFront.getName());
-//        user.setLastName(getFromFront.getLastName());
-//        user.setEmail(getFromFront.getEmail());
-//        user.setPhoneNumber(getFromFront.getPhoneNumber());
-//        return user;
-//    }
-//          UserDto userDto = GetFromFrontToUser(getFromFront);
-//          User userCreate = UserMapper.INSTANCE.toUser(userDto);
-//      System.out.println(userCreate);
+    public UserDto GetFromFrontToUser(GetFromFront getFromFront) {
+        UserDto user = new UserDto();
+        user.setName(getFromFront.getName());
+        user.setLastName(getFromFront.getLastName());
+        user.setEmail(getFromFront.getEmail());
+        user.setPhoneNumber(getFromFront.getPhoneNumber());
+        return user;
+    }
+
 
     @Override
     public OrderDto saveOrder(GetFromFront getFromFront) {
         CarDto car = carService.findById(getFromFront.getCarId());
-        LocationRendDto locationRendGet = locationRendService.findByID(getFromFront.getPleaseGet().getId());
-        LocationRendDto locationRendSet = locationRendService.findByID(getFromFront.getPleaseSet().getId());
-        UserDto userDto = new UserDto();
-        userDto.setName(getFromFront.getName());
-        userDto.setLastName(getFromFront.getLastName());
-        userDto.setPhoneNumber(getFromFront.getPhoneNumber());
-        userDto.setEmail(getFromFront.getEmail());
+        if (car.isActive() != false) {
+            car = carService.updateActive(StatusCar.RENTED,false,car.getId());
+        } else {
+            System.out.println("These car is rented");
+        }
+        UserDto userDto = GetFromFrontToUser(getFromFront);
+        // UserDto userDto = new UserDto();
+        // userDto.setName(getFromFront.getName());
+        // userDto.setLastName(getFromFront.getLastName());
+        // userDto.setPhoneNumber(getFromFront.getPhoneNumber());
+        // userDto.setEmail(getFromFront.getEmail());
         UserDto user1 = userService.finUserByEmail(getFromFront.getEmail());
         if (user1 == null) {
             userDto = userService.saveUser(userDto);
             OrderDto orderDto = new OrderDto();
-            return orderDto = saveOrders(car, userDto, getFromFront, locationRendGet, locationRendSet);
+            return orderDto = saverOrders(car, userDto, getFromFront);
         } else {
             OrderDto orderDto = new OrderDto();
-            return orderDto = saveOrders(car, user1, getFromFront, locationRendGet, locationRendSet);
+            return orderDto = saverOrders(car, user1, getFromFront);
         }
     }
 
-
-    private OrderDto saveOrders(CarDto car, UserDto user, GetFromFront getFromFront,
-                                LocationRendDto locationRendGet, LocationRendDto locationRendSet) {
+    private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
         OrderDto orderDto = new OrderDto();
-
+        LocationRendDto locationRendGet = locationRendService.findByID(getFromFront.getPleaseGet().getId());
+        LocationRendDto locationRendSet = locationRendService.findByID(getFromFront.getPleaseSet().getId());
 
         try {
             SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
             //Comparing dates
             long difference = Math.abs(date1.getTime() - date2.getTime());
             long differenceDates = difference / (24 * 60 * 60 * 1000);
-            orderDto.setTotalSum(car.getRendPrice().getPrice() * differenceDates);
+            orderDto.setTotalSum(car.getRendPrice().getPrice() * (double) differenceDates);
             System.out.println(differenceDates);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -105,6 +105,22 @@ public class OrderServiceImpl implements OrderService {
         Order DtoToOrder = OrderMapper.INSTANCE.toOrder(orderDto);
         Order orderSave = orderRepository.save(DtoToOrder);
         return OrderMapper.INSTANCE.orderToDto(orderSave);
+    }
+
+    @Override
+    public OrderDto returnOrder(OrderDto orderDto, Long id) {
+        if(orderRepository.existsById(id)) {
+            Order order = orderRepository.findById(id).get();
+            Date dateTimeToReturn = new Date();
+            if (order.getEndDateRent().before(dateTimeToReturn)) {
+                CarDto carDto = carService.updateActive(StatusCar.AVAILABLE, true, id);
+                Car car = CarMapper.INSTANCE.car(carDto);
+                order.setCar(car);
+                Order orderSaver = orderRepository.save(order);
+                return OrderMapper.INSTANCE.orderToDto(orderSaver);
+            }
+        }
+        return null;
     }
 
     @Override

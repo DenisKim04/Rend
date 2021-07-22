@@ -2,5 +2,7 @@ package kg.Cab.Rend.model;
 
 public enum StatusCar {
 
-    AVAILABLE, RENTED, BOOKED
+    AVAILABLE, //free
+    RENTED,     //in rent
+    BOOKED      // зарервирована
 }

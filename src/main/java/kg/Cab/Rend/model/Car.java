@@ -30,7 +30,7 @@ public class Car {
     @JoinColumn(name = "carDescription_id")
     private CarDescription carDescription;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryCar_id")
+    @JoinColumn(name = "category_car_id")
     private CategoryCar categoryCar;
 
 

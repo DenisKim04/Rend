@@ -21,7 +21,7 @@ public class Car {
     private Byte seats;
     private Byte baggage;
     private Byte doors;
-    private boolean active;
+    private boolean active = true;
     private String picketer;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id")

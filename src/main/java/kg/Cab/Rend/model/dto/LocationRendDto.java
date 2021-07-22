@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class LocationRendDto {
     private Long id;
-    private String AddressGet;
-    private String AddressReturn;
+    private String Street;
+    private int numNous;
+
 }

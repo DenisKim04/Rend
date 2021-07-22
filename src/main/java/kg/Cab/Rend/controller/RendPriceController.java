@@ -25,8 +25,8 @@ public class RendPriceController {
         return rendPriceService.sorted();
     }
     @PutMapping("/update")
-    public RendPriceDto update(@RequestBody RendPriceDto rendPriceDto){
-        return rendPriceService.updatePrice(rendPriceDto);
+    public RendPriceDto update(@RequestBody RendPriceDto rendPriceDto,@RequestParam Long id){
+        return rendPriceService.updatePrice(rendPriceDto,id );
     }
 
 }

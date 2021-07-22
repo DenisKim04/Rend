@@ -83,6 +83,15 @@ public class CarController {
     public List<CarDto> findYearCar(@RequestParam Short year) {
         return carService.findByYears(year);
     }
+    @PutMapping("/UpdateCar")
+    public CarDto update(@RequestBody CarDto carDto,Long id){
+        return carService.update(carDto,id);
+    }
+
+    @PutMapping("/updateActive")
+    public  CarDto updateActive(@RequestParam boolean active,@RequestParam Long id){
+        return carService.updateActive(active,id);
+    }
 
 
 }

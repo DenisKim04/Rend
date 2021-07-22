@@ -29,4 +29,10 @@ public class LocationRendServiceImpl implements LocationRendService {
 
         return LocationRendMapper.INSTANCE.listLocationRendToDto(locationRend);
     }
+
+    @Override
+    public LocationRendDto findByID(Long id) {
+        LocationRend locationRend = locationRendRepository.findById(id).get();
+        return LocationRendMapper.INSTANCE.locationRendToDto(locationRend);
+    }
 }

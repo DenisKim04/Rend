@@ -3,8 +3,14 @@ package kg.Cab.Rend.service.impl;
 import kg.Cab.Rend.dao.Repository.CarRepository;
 import kg.Cab.Rend.mapper.CarMapper;
 import kg.Cab.Rend.model.*;
+import kg.Cab.Rend.model.dto.CarDescriptionDto;
 import kg.Cab.Rend.model.dto.CarDto;
+import kg.Cab.Rend.model.dto.CategoryCarDto;
+import kg.Cab.Rend.model.dto.RendPriceDto;
+import kg.Cab.Rend.service.CarDescriptionService;
 import kg.Cab.Rend.service.CarService;
+import kg.Cab.Rend.service.CategoryCarService;
+import kg.Cab.Rend.service.RendPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +21,22 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private CarDescriptionService carDescriptionService;
+    @Autowired
+    private CategoryCarService categoryCarService;
+    @Autowired
+    private RendPriceService rendPriceService;
 
     @Override
-    public CarDto saveCar(CarDto car) {
-        Car car2 = CarMapper.INSTANCE.car(car);
+    public CarDto saveCar(CarDto carDto) {
+        CategoryCarDto categoryCarDto = categoryCarService.findById(carDto.getCategoryCar().getId());
+        carDto.setCategoryCar(categoryCarDto);
+        CarDescriptionDto carDescriptionDto = carDescriptionService.saveCarDescription(carDto.getCarDescription());
+        carDto.setCarDescription(carDescriptionDto);
+        RendPriceDto rendPriceDto = rendPriceService.saveRendPrice(carDto.getRendPrice());
+        carDto.setRendPrice(rendPriceDto);
+        Car car2 = CarMapper.INSTANCE.car(carDto);
         Car car1 = carRepository.save(car2);
         return CarMapper.INSTANCE.carDto(car1);
 
@@ -121,6 +139,19 @@ public class CarServiceImpl implements CarService {
             return CarMapper.INSTANCE.carDto(car1);
         }else {
             System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public CarDto updateActive(boolean active, Long id) {
+        if(carRepository.existsById(id)){
+            Car car = carRepository.findById(id).get();
+            car.setActive(active);
+            car = carRepository.save(car);
+            return CarMapper.INSTANCE.carDto(car);
+        }else {
+            System.out.println("Id is not fund");
         }
         return null;
     }

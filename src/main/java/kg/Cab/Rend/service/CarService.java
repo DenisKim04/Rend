@@ -36,4 +36,6 @@ public interface CarService {
 
     CarDto update(CarDto carDto, Long id);
 
+    CarDto updateActive(boolean active, Long id);
+
 }

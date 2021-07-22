@@ -7,5 +7,8 @@ import java.util.List;
 public interface LocationRendService {
 
     LocationRendDto save(LocationRendDto locationRendDto);
-    List<LocationRendDto> find ();
+
+    List<LocationRendDto> find();
+
+    LocationRendDto findByID(Long id);
 }

@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public User findUserByPhoneNumber(@Param("phone_number") String phoneNumber);
 
     @Query(value = "SELECT * FROM users u WHERE u.email = ?1", nativeQuery = true)
-    public User finUserByEmail(@Param("email") String email);
+    public User findUserByEmail(@Param("email") String email);
 
     @Transactional
     @Modifying

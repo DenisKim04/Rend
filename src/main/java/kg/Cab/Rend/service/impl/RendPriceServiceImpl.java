@@ -2,15 +2,14 @@ package kg.Cab.Rend.service.impl;
 
 import kg.Cab.Rend.dao.Repository.RendPriceRepository;
 import kg.Cab.Rend.mapper.RendPriceMapper;
-import kg.Cab.Rend.mapper.UserMapper;
 import kg.Cab.Rend.model.RendPrice;
 import kg.Cab.Rend.model.dto.RendPriceDto;
 import kg.Cab.Rend.service.RendPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestPart;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +35,22 @@ public class RendPriceServiceImpl implements RendPriceService {
     }
 
     @Override
-    public RendPriceDto updatePrice(RendPriceDto rendPriceDto) {
+    public RendPriceDto updatePrice(RendPriceDto rendPriceDto, Long id) {
         RendPrice rendPrice1 = RendPriceMapper.INSTANCE.toRendPrice(rendPriceDto);
-        RendPrice rendPrice2 = rendPriceRepository.save(rendPrice1);
-        return RendPriceMapper.INSTANCE.rendPriceToDto(rendPrice2);
+        if(rendPriceRepository.existsById(id)){
+        RendPrice rendPrice2 = rendPriceRepository.findById(id).get();
+        rendPrice2.setStartDate(new Date());
+        rendPrice2.setEndDate(new Date(rendPrice1.getStartDate().getTime()-1));
+        if (rendPrice1.getPrice()==rendPrice2.getPrice()){
+            rendPrice1.setStartDate(new Date());
+            rendPrice1.setEndDate(new Date(rendPrice1.getStartDate().getTime() -1));
+            RendPrice rendPriceNew = rendPriceRepository.save(rendPrice1);
+            return RendPriceMapper.INSTANCE.rendPriceToDto(rendPriceNew);
+        }
+        RendPrice rendPrices =rendPriceRepository.save(rendPrice2);
+        return RendPriceMapper.INSTANCE.rendPriceToDto(rendPrices);
+        }
+return null;
     }
 
 

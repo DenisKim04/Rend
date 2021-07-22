@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto finUserByEmail(String email) {
 
-        User user2 = userRepository.finUserByEmail(email);
+        User user2 = userRepository.findUserByEmail(email);
         return UserMapper.INSTANCE.toUserDto(user2);
     }
 

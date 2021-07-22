@@ -3,6 +3,7 @@ package kg.Cab.Rend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 
 import javax.persistence.*;
 
@@ -18,19 +19,22 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id")
-    private LocationRend locationRend;
+    @ManyToOne
+    @JoinColumn(name = "locationGet_id")
+    private LocationRend pleaseGet;
+    @ManyToOne
+    @JoinColumn(name = "locationSet_id")
+    private LocationRend pleaseSet;
     private Date startDateRent;
     private Date endDateRent;
     private double totalSum ;
-    private String comment;
+
 
 
 }

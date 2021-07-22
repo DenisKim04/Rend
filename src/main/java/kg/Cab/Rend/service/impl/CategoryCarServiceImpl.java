@@ -17,6 +17,12 @@ public class CategoryCarServiceImpl implements CategoryCarService {
 
 
     @Override
+    public CategoryCarDto findById(Long id) {
+        CategoryCar categoryCar = categoryCarRepository.findById(id).get();
+        return CategoryCarMapper.INSTANCE.categoryCarDto(categoryCar);
+    }
+
+    @Override
     public CategoryCarDto saveCategoryCar(CategoryCar car) {
       CategoryCar car1 = categoryCarRepository.save(car);
         return CategoryCarMapper.INSTANCE.categoryCarDto(car1);

@@ -13,9 +13,10 @@ public class OrderDto {
     private Long id;
     private UserDto user;
     private CarDto car;
-    private LocationRendDto locationRend;
+    private LocationRendDto pleaseGet;
+    private LocationRendDto pleaseSet;
     private Date startDateRent;
     private Date endDateRent;
     private double totalSum;
-    private String comment;
+
 }

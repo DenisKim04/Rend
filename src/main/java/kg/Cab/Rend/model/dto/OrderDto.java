@@ -19,4 +19,5 @@ public class OrderDto {
     private Date endDateRent;
     private double totalSum;
     private boolean activeOrder;
+    OrderDto orders;
 }

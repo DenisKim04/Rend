@@ -31,8 +31,37 @@ public class LocationRendServiceImpl implements LocationRendService {
     }
 
     @Override
-    public LocationRendDto findByID(Long id) {
+    public LocationRendDto findById(Long id) {
         LocationRend locationRend = locationRendRepository.findById(id).get();
         return LocationRendMapper.INSTANCE.locationRendToDto(locationRend);
     }
+
+    @Override
+    public LocationRendDto updateStreetName(String streetName, Long id) {
+        if (locationRendRepository.existsById(id)) {
+            LocationRend locationRend1 = locationRendRepository.findById(id).get();
+            locationRend1.setStreet(streetName);
+            LocationRend locationRend2 = locationRendRepository.save(locationRend1);
+            return LocationRendMapper.INSTANCE.locationRendToDto(locationRend2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public LocationRendDto updateHoseNum(int hoseNum, Long id) {
+
+        if (locationRendRepository.existsById(id)) {
+            LocationRend locationRend1 = locationRendRepository.findById(id).get();
+            locationRend1.setNumNous(hoseNum);
+            LocationRend locationRend2 = locationRendRepository.save(locationRend1);
+            return LocationRendMapper.INSTANCE.locationRendToDto(locationRend2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+
 }

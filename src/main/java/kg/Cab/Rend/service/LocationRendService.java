@@ -10,5 +10,9 @@ public interface LocationRendService {
 
     List<LocationRendDto> find();
 
-    LocationRendDto findByID(Long id);
+    LocationRendDto findById(Long id);
+
+    LocationRendDto updateStreetName(String streetName, Long id);
+
+    LocationRendDto updateHoseNum(int hoseNum, Long id);
 }

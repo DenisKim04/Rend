@@ -17,9 +17,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto userDto) {
+        String checkTruerEmail = userDto.getEmail().substring(-9,userDto.getEmail().length());
+        if (checkTruerEmail.equals("@gmail.com")){
         User user = UserMapper.INSTANCE.toUser(userDto);
         User user1 = userRepository.save(user);
         return UserMapper.INSTANCE.toUserDto(user1);
+        }else {
+            System.out.println("email is not found");
+            return null;
+        }
     }
 
     @Override
@@ -65,8 +71,62 @@ public class UserServiceImpl implements UserService {
             user1.setEmail(user.getLastName());
             user1.setPhoneNumber(user.getPhoneNumber());
             user1.setEmail(user.getEmail());
-            user1 = userRepository.updateUser(user.getName(), user.getLastName(), user.getPhoneNumber(), user.getEmail());
-            return UserMapper.INSTANCE.toUserDto(user1);
+            User user2 = userRepository.save(user1);
+            return UserMapper.INSTANCE.toUserDto(user2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public UserDto upDataUserByName(String name, Long id) {
+
+        if (userRepository.existsById(id)) {
+            User user1 = userRepository.findById(id).get();
+            user1.setName(name);
+            User user2 = userRepository.save(user1);
+            return UserMapper.INSTANCE.toUserDto(user2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public UserDto upDataUserLastName(String lastname, Long id) {
+        if (userRepository.existsById(id)) {
+            User user1 = userRepository.findById(id).get();
+            user1.setLastName(lastname);
+            User user2 = userRepository.save(user1);
+            return UserMapper.INSTANCE.toUserDto(user2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public UserDto upDataUserByPhone(String phone, Long id) {
+        if (userRepository.existsById(id)) {
+            User user1 = userRepository.findById(id).get();
+            user1.setPhoneNumber(phone);
+            User user2 = userRepository.save(user1);
+            return UserMapper.INSTANCE.toUserDto(user2);
+        } else {
+            System.out.println("Id is not found");
+        }
+        return null;
+    }
+
+    @Override
+    public UserDto upDataUserByEmail(String email, Long id) {
+        if (userRepository.existsById(id)) {
+            User user1 = userRepository.findById(id).get();
+
+            user1.setEmail(email);
+            User user2 = userRepository.save(user1);
+            return UserMapper.INSTANCE.toUserDto(user2);
         } else {
             System.out.println("Id is not found");
         }

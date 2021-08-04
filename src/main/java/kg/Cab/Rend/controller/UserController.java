@@ -2,7 +2,6 @@ package kg.Cab.Rend.controller;
 
 import io.swagger.annotations.Api;
 import kg.Cab.Rend.configuretions.Swagger2Config;
-import kg.Cab.Rend.model.User;
 import kg.Cab.Rend.model.dto.UserDto;
 import kg.Cab.Rend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +48,26 @@ public class UserController {
     }
 
     @PutMapping("/upDataUser")
-    public UserDto upDataUser(@RequestBody UserDto userDto, Long id) {
+    public UserDto updateUser(@RequestBody UserDto userDto,@RequestParam Long id) {
         return userService.upDataUser(userDto, id);
     }
+
+    @PutMapping("/upDataUserByName")
+    public UserDto updateUserByName(@RequestParam String name,@RequestParam Long id) {
+        return userService.upDataUserByName(name, id);
+    }
+    @PutMapping("/upDataUserByLastName")
+    public UserDto updateUserByLastName(@RequestParam String lastname,@RequestParam Long id) {
+        return userService.upDataUserLastName(lastname, id);
+    }
+        @PutMapping("/upDataUserByPhone")
+        public UserDto updateUserByPhone(@RequestParam String phone,@RequestParam Long id) {
+            return userService.upDataUserByPhone(phone, id);
+        }
+    @PutMapping("/upDataUserByEmail")
+    public UserDto updateUserByEmail(@RequestParam String email,@RequestParam Long id) {
+        return userService.upDataUserByEmail(email, id);
+    }
+
 }
 

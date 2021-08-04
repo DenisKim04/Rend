@@ -17,6 +17,15 @@ import java.util.List;
 public class CarController {
     @Autowired
     private CarService carService;
+    @PutMapping("/UpdateCar")
+    public CarDto update(@RequestBody CarDto carDto,Long id){
+        return carService.update(carDto,id);
+    }
+
+    @PutMapping("/updateActive")
+    public  CarDto updateActive(@RequestParam StatusCar statusCar ,@RequestParam boolean active,@RequestParam Long id){
+        return carService.updateActive(statusCar, active,id);
+    }
 
     @PostMapping("/saveCar")
     public CarDto saveCar(@RequestBody CarDto car) {
@@ -84,19 +93,11 @@ public class CarController {
         public List<CarDto> sortByCategory(){
         return carService.sortByCategory();
     }
-    @PutMapping("/UpdateCar")
-    public CarDto update(@RequestBody CarDto carDto,Long id){
-        return carService.update(carDto,id);
-    }
 
-    @PutMapping("/updateActive")
-    public  CarDto updateActive(@RequestParam StatusCar statusCar ,@RequestParam boolean active,@RequestParam Long id){
-        return carService.updateActive(statusCar, active,id);
     }
 
 
 
-}
 
 
 

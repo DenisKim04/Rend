@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.constant.Constable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     private LocationRendService locationRendService;
 
 
-    public UserDto GetFromFrontToUser(GetFromFront getFromFront) {
+    private UserDto GetFromFrontToUser(GetFromFront getFromFront) {
         UserDto user = new UserDto();
         user.setName(getFromFront.getName());
         user.setLastName(getFromFront.getLastName());
@@ -49,16 +50,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto saveOrder(GetFromFront getFromFront) {
         CarDto car = carService.findById(getFromFront.getCarId());
         if (car.isActive() != false) {
-            car = carService.updateActive(StatusCar.RENTED,false,car.getId());
+            car = carService.updateActive(StatusCar.RENTED, false, car.getId());
         } else {
             System.out.println("These car is rented");
         }
         UserDto userDto = GetFromFrontToUser(getFromFront);
-        // UserDto userDto = new UserDto();
-        // userDto.setName(getFromFront.getName());
-        // userDto.setLastName(getFromFront.getLastName());
-        // userDto.setPhoneNumber(getFromFront.getPhoneNumber());
-        // userDto.setEmail(getFromFront.getEmail());
         UserDto user1 = userService.finUserByEmail(getFromFront.getEmail());
         if (user1 == null) {
             userDto = userService.saveUser(userDto);
@@ -70,32 +66,30 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
-        OrderDto orderDto = new OrderDto();
-        LocationRendDto locationRendGet = locationRendService.findByID(getFromFront.getPleaseGet().getId());
-        LocationRendDto locationRendSet = locationRendService.findByID(getFromFront.getPleaseSet().getId());
-
+    private double sumDate(Date startDate, Date endDate) {
         try {
             SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
 
-            //Setting dates
-            orderDto.setStartDateRent(new Date());
-            orderDto.setEndDateRent(getFromFront.getEndDate());
-
-            String CurrentDate = dates.format(orderDto.getStartDateRent().getTime());
-            String FinalDate = dates.format(orderDto.getEndDateRent().getTime());
-
+            String CurrentDate = dates.format(startDate.getTime());
+            String FinalDate = dates.format(endDate.getTime());
             Date date1 = dates.parse(CurrentDate);
             Date date2 = dates.parse(FinalDate);
-
-            //Comparing dates
             long difference = Math.abs(date1.getTime() - date2.getTime());
-            long differenceDates = difference / (24 * 60 * 60 * 1000);
-            orderDto.setTotalSum(car.getRendPrice().getPrice() * (double) differenceDates);
-            System.out.println(differenceDates);
+            double differenceDates = difference / (24 * 60 * 60 * 1000);
+            return differenceDates;
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        return 0;
+    }
+
+    private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
+        OrderDto orderDto = new OrderDto();
+        LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
+        LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
+        orderDto.setTotalSum(car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()));
         orderDto.setCar(car);
         orderDto.setUser(user);
         orderDto.setStartDateRent(getFromFront.getStartDate());
@@ -109,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto returnOrder(OrderDto orderDto, Long id) {
-        if(orderRepository.existsById(id)) {
+        if (orderRepository.existsById(id)) {
             Order order = orderRepository.findById(id).get();
             Date dateTimeToReturn = new Date();
             if (order.getEndDateRent().before(dateTimeToReturn)) {
@@ -125,10 +119,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> find() {
-
         List<Order> orderList = orderRepository.findAll();
         return OrderMapper.INSTANCE.orderListToDto(orderList);
-
     }
 }
 

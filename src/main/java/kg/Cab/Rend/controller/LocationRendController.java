@@ -21,6 +21,14 @@ public class LocationRendController {
     public LocationRendDto save(@RequestBody LocationRendDto locationRendDto) {
         return locationRendService.save(locationRendDto);
     }
+    @PutMapping("/updateStreetName")
+    public LocationRendDto updateStreetName(@RequestParam String streetName,@RequestParam Long id){
+        return locationRendService.updateStreetName(streetName,id);
+    }
+    @PutMapping("/updateNumHose")
+    public LocationRendDto updateNumHose(@RequestParam int hoseNum,Long id){
+        return locationRendService.updateHoseNum(hoseNum,id);
+    }
 
     @GetMapping("/findLocationRend")
     public List<LocationRendDto> find() {

@@ -19,7 +19,7 @@ public class OrderController {
 
     @PostMapping("/saveOrder")
     public OrderDto saveOrder(@RequestBody GetFromFront getFromFront) {
-        return orderService.saveOrder(getFromFront);
+        return orderService.examinationOrder(getFromFront);
     }
 
     @GetMapping("/findOrder")

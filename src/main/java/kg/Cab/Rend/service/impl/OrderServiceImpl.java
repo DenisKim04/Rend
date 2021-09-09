@@ -15,8 +15,6 @@ import kg.Cab.Rend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.lang.constant.Constable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderDto saveOrder(GetFromFront getFromFront) {
+    public OrderDto examinationOrder(GetFromFront getFromFront) {           // проверка на наличие был ли рание зарегистрован ползователь
         CarDto car = carService.findById(getFromFront.getCarId());
         if (car.isActive() != false) {
             car = carService.updateActive(StatusCar.RENTED, false, car.getId());
@@ -55,21 +53,20 @@ public class OrderServiceImpl implements OrderService {
             System.out.println("These car is rented");
         }
         UserDto userDto = GetFromFrontToUser(getFromFront);
-        UserDto user1 = userService.finUserByEmail(getFromFront.getEmail());
-        if (user1 == null) {
-            userDto = userService.saveUser(userDto);
+        UserDto finderUser = userService.finUserByEmail(getFromFront.getEmail());
+        if (finderUser == null) {                      // в случии если пользователя нет то полльзователь сохраняется в базе данных
+            userDto = userService.saveUser(userDto);  // для того чтолбы занать кто заказал машину
             OrderDto orderDto = new OrderDto();
             return orderDto = saverOrders(car, userDto, getFromFront);
         } else {
             OrderDto orderDto = new OrderDto();
-            return orderDto = saverOrders(car, user1, getFromFront);
+            return orderDto = saverOrders(car, userDto, getFromFront);
         }
     }
 
     private double sumDate(Date startDate, Date endDate) {
         try {
             SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
-
             String CurrentDate = dates.format(startDate.getTime());
             String FinalDate = dates.format(endDate.getTime());
             Date date1 = dates.parse(CurrentDate);

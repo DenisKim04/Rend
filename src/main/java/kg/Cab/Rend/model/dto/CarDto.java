@@ -6,11 +6,11 @@ import kg.Cab.Rend.model.RendPrice;
 import kg.Cab.Rend.model.StatusCar;
 import lombok.Data;
 
-import javax.persistence.*;
 @Data
 public class CarDto {
     private Long id;
     private String name;
+    private String numCar;
     private Short year;
     private StatusCar statusCar;
     private Byte seats;

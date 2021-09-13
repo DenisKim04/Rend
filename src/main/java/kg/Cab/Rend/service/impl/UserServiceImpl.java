@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto userDto) {
         String checkTruerEmail = userDto.getEmail().substring(-9,userDto.getEmail().length());
-        if (checkTruerEmail.equals("@gmail.com")){
+        if (checkTruerEmail.equals("@gmail.com")&& checkTruerEmail.equals("@mail.ru")){
         User user = UserMapper.INSTANCE.toUser(userDto);
         User user1 = userRepository.save(user);
         return UserMapper.INSTANCE.toUserDto(user1);
@@ -27,7 +27,13 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+   //loop automation
+    private UserDto LoopSaverUser (){
+        for (int x = 0;x == 3;x++){
 
+        }
+        return null;
+    }
     @Override
     public List<UserDto> findAll() {
         List<User> user = userRepository.findAll();
@@ -123,7 +129,6 @@ public class UserServiceImpl implements UserService {
     public UserDto upDataUserByEmail(String email, Long id) {
         if (userRepository.existsById(id)) {
             User user1 = userRepository.findById(id).get();
-
             user1.setEmail(email);
             User user2 = userRepository.save(user1);
             return UserMapper.INSTANCE.toUserDto(user2);
@@ -132,4 +137,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-}
+
+    }
+
+

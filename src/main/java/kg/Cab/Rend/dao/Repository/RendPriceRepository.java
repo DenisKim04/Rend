@@ -13,10 +13,6 @@ import java.util.List;
 
 @Repository
 public interface RendPriceRepository extends JpaRepository<RendPrice, Long> {
-
-
-
-
     @Transactional
     @Modifying
     @Query(value = "UPDATE  rend_price rp SET rp.price = ?1", nativeQuery = true)

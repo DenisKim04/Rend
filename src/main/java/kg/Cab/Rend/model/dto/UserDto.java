@@ -2,8 +2,6 @@ package kg.Cab.Rend.model.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-
 @Data
 public class UserDto {
     private Long id;
@@ -11,5 +9,5 @@ public class UserDto {
     private String lastName;
     private String phoneNumber;
     private String email;
-
+   // private WalletUsersDto walletUser;
 }

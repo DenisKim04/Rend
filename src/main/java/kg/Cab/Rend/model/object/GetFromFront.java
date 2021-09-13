@@ -6,8 +6,9 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class GetFromFront {
+    //for
     private Long carId;
-    //for order
+    private String numCar;
     private LocationRend pleaseGet;
     private LocationRend pleaseSet;
     private Date startDate;

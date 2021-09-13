@@ -5,17 +5,19 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
+
 
 @Entity
-@Table(name = "locations")
+@Table(name = "wallet_user")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class LocationRend {
+public class WalletUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String Street;
-    private int numNous;
-
+    private Date startDate;
+    private Date endDate;
+    private double money;
 }

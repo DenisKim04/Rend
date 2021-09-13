@@ -1,9 +1,7 @@
 package kg.Cab.Rend.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +17,8 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String email;
-
+    @OneToOne
+    @JoinColumn(name = "waller_user_id")
+    private WalletUser walletUser;
 
 }

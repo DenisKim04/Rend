@@ -15,10 +15,10 @@ public interface UserMapper {
     // Перевод в в Dto
     UserDto toUserDto(User user);
 
+    List<UserDto> toUserDtoList(List<User> user);
+
     // Перевод обратно в User
     User toUser(UserDto userDto);
-
-    List<UserDto> toUserDtoList(List<User> user);
 
     List<User> toUserList(List<UserDto> user);
 

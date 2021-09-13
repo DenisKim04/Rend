@@ -1,9 +1,6 @@
 package kg.Cab.Rend.model.dto;
 
-import kg.Cab.Rend.model.CarDescription;
-import kg.Cab.Rend.model.CategoryCar;
-import kg.Cab.Rend.model.RendPrice;
-import kg.Cab.Rend.model.StatusCar;
+import kg.Cab.Rend.model.object.StatusCar;
 import lombok.Data;
 
 @Data

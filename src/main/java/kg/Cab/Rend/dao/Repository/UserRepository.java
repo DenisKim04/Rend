@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+
     @Modifying
     @Query(value = "SELECT * FROM users u WHERE u.name = ?1", nativeQuery = true)
     public List<User> findUserByName(@Param("name") String name);

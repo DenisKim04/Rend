@@ -1,5 +1,6 @@
 package kg.Cab.Rend.model;
 
+import kg.Cab.Rend.model.object.StatusCar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

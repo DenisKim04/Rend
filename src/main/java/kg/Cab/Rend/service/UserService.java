@@ -16,10 +16,15 @@ public interface UserService {
     public UserDto findUserByPhoneNumber(String phoneNumber);
 
     public UserDto finUserByEmail(String email);
+
     public UserDto upDataUser(UserDto userDto, Long id);
+
     public UserDto upDataUserByName(String name, Long id);
+
     public UserDto upDataUserLastName(String lastname, Long id);
+
     public UserDto upDataUserByPhone(String phone, Long id);
+
     public UserDto upDataUserByEmail(String email, Long id);
 
 }

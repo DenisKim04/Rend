@@ -2,6 +2,7 @@ package kg.Cab.Rend.service;
 
 import kg.Cab.Rend.model.*;
 import kg.Cab.Rend.model.dto.CarDto;
+import kg.Cab.Rend.model.object.StatusCar;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface CarService {
 
     CarDto update(CarDto carDto, Long id);
 
-    CarDto updateActive(StatusCar statusCar,boolean active, Long id);
+    CarDto updateActive(StatusCar statusCar, boolean active, Long id);
 
     List<CarDto> sortByCategory();
 

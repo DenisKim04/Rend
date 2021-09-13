@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import kg.Cab.Rend.configuretions.Swagger2Config;
 import kg.Cab.Rend.model.*;
 import kg.Cab.Rend.model.dto.CarDto;
+import kg.Cab.Rend.model.object.StatusCar;
 import kg.Cab.Rend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class CarController {
     }
 
     @PutMapping("/updateActive")
-    public  CarDto updateActive(@RequestParam StatusCar statusCar ,@RequestParam boolean active,@RequestParam Long id){
+    public  CarDto updateActive(@RequestParam StatusCar statusCar , @RequestParam boolean active, @RequestParam Long id){
         return carService.updateActive(statusCar, active,id);
     }
 

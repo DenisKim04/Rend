@@ -1,16 +1,13 @@
 package kg.Cab.Rend.dao.Repository;
 
 import kg.Cab.Rend.model.*;
-import kg.Cab.Rend.model.dto.CarDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kg.Cab.Rend.model.object.StatusCar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -47,7 +44,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     @Modifying
     @Query(value = "UPDATE  cars c SET c.name = :name, c.year= :year, c.statusCar = :statusCar, c.seats= :seats, c.baggage = :baggage, c.doors = :doors, c.picketer = :picketer,", nativeQuery = true)
     public Car update(@Param("name") String name, @Param("year") short year,
-                         @Param("statusCar") StatusCar statusCar, @Param("seats") byte seats,
-                         @Param("baggage")byte baggage, @Param("doors") byte doors,@Param("picketer")String picketer);
+                      @Param("statusCar") StatusCar statusCar, @Param("seats") byte seats,
+                      @Param("baggage")byte baggage, @Param("doors") byte doors, @Param("picketer")String picketer);
 
 }

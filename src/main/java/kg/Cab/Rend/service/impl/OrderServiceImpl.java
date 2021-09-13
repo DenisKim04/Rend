@@ -5,7 +5,7 @@ import kg.Cab.Rend.mapper.CarMapper;
 import kg.Cab.Rend.mapper.OrderMapper;
 import kg.Cab.Rend.model.Car;
 import kg.Cab.Rend.model.Order;
-import kg.Cab.Rend.model.StatusCar;
+import kg.Cab.Rend.model.object.StatusCar;
 import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.model.dto.LocationRendDto;
 import kg.Cab.Rend.model.dto.OrderDto;
@@ -40,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
         user.setLastName(getFromFront.getLastName());
         user.setEmail(getFromFront.getEmail());
         user.setPhoneNumber(getFromFront.getPhoneNumber());
+
         return user;
     }
 
@@ -87,6 +88,7 @@ public class OrderServiceImpl implements OrderService {
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
         LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
         orderDto.setTotalSum(car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()));
+    //    orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());
         orderDto.setCar(car);
         orderDto.setUser(user);
         orderDto.setStartDateRent(getFromFront.getStartDate());

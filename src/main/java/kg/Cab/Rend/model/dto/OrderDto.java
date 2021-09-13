@@ -4,10 +4,11 @@ import kg.Cab.Rend.model.Car;
 import kg.Cab.Rend.model.LocationRend;
 import kg.Cab.Rend.model.User;
 import lombok.Data;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
+
+
+
+
 @Data
 public class OrderDto {
     private Long id;
@@ -19,5 +20,5 @@ public class OrderDto {
     private Date endDateRent;
     private double totalSum;
     private boolean activeOrder;
-    OrderDto orders;
+
 }

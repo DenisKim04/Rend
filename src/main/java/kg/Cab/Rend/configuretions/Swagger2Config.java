@@ -14,8 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public
-class Swagger2Config {
+public class Swagger2Config {
 
     public static final String CAR = "Cars";
     public static final String CAR_DESCRIPTION = "Car description";
@@ -24,6 +23,7 @@ class Swagger2Config {
     public static final String USER = "User";
     public static final String ORDER = "Order";
     public static final String REND_PRICE = "Rend_price";
+    public static final String WALLET_USER = "Wallet_users";
 
 
     @Bean
@@ -38,6 +38,7 @@ class Swagger2Config {
                 .tags(new Tag(CATEGORY_CAR,""))
                 .tags(new Tag(LOCATION_REND ,""))
                 .tags(new Tag(USER, ""))
+                .tags(new Tag(WALLET_USER,""))
                 .tags(new Tag(ORDER, ""))
                 .tags(new Tag(REND_PRICE, ""));
     }

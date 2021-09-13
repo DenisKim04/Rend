@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Api(tags = {Swagger2Config.REND_PRICE})
 @RestController
-@RequestMapping("api/v1/rendPrice")
+@RequestMapping("api/v1/rend_price")
 @CrossOrigin
 public class RendPriceController {
     @Autowired

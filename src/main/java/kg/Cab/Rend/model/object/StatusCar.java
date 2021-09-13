@@ -1,4 +1,4 @@
-package kg.Cab.Rend.model;
+package kg.Cab.Rend.model.object;
 
 public enum StatusCar {
 

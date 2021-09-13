@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Api(tags = {Swagger2Config.LOCATION_REND})
 @RestController
-@RequestMapping("/api/v1/LocationRend")
+@RequestMapping("/api/v1/Location_rend")
 @CrossOrigin
 public class LocationRendController {
     @Autowired

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Api(tags = {Swagger2Config.CATEGORY_CAR})
 @RestController
-@RequestMapping("/api/v1/categoryCat")
+@RequestMapping("/api/v1/category_car")
 @CrossOrigin
 public class CategoryCarController {
     @Autowired

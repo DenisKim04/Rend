@@ -7,6 +7,7 @@ import kg.Cab.Rend.model.dto.CarDescriptionDto;
 import kg.Cab.Rend.model.dto.CarDto;
 import kg.Cab.Rend.model.dto.CategoryCarDto;
 import kg.Cab.Rend.model.dto.RendPriceDto;
+import kg.Cab.Rend.model.object.StatusCar;
 import kg.Cab.Rend.service.CarDescriptionService;
 import kg.Cab.Rend.service.CarService;
 import kg.Cab.Rend.service.CategoryCarService;
@@ -144,7 +145,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto updateActive(StatusCar statusCar,boolean active, Long id) {
+    public CarDto updateActive(StatusCar statusCar, boolean active, Long id) {
         if(carRepository.existsById(id)){
             Car car = carRepository.findById(id).get();
             car.setStatusCar(statusCar);

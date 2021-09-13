@@ -87,8 +87,9 @@ public class OrderServiceImpl implements OrderService {
         OrderDto orderDto = new OrderDto();
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
         LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
-        orderDto.setTotalSum(car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()));
-    //    orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());
+        orderDto.setTotalSum((car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate())));
+        orderDto.setTotalSum(orderDto.getTotalSum()-discounts(sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()),orderDto.getTotalSum()));
+        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());
         orderDto.setCar(car);
         orderDto.setUser(user);
         orderDto.setStartDateRent(getFromFront.getStartDate());
@@ -98,6 +99,27 @@ public class OrderServiceImpl implements OrderService {
         Order DtoToOrder = OrderMapper.INSTANCE.toOrder(orderDto);
         Order orderSave = orderRepository.save(DtoToOrder);
         return OrderMapper.INSTANCE.orderToDto(orderSave);
+    }
+    private double discounts(double sumOfDay, double totalSum){         // расчет скидки в зависмости до суммы дней
+        double sales;
+        if (sumOfDay > 7){
+            sales = 5;
+            return salePrice(sales,totalSum);
+
+        }else if(sumOfDay > 10){
+            sales = 10;
+            return salePrice(sales,totalSum);
+
+        }else if (sumOfDay > 13){
+            sales = 20;
+            return salePrice(sales,totalSum);
+        }else {
+         return totalSum;
+        }
+    }
+    private  double salePrice(double percentSales,double totalSum){
+        double totalSumPostSales = totalSum*percentSales/100;
+        return totalSumPostSales;
     }
 
     @Override

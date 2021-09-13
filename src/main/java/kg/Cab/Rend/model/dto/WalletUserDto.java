@@ -1,7 +1,9 @@
 package kg.Cab.Rend.model.dto;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class WalletUserDto {
     private Long id;
     private Date startDate;

@@ -9,5 +9,5 @@ public class UserDto {
     private String lastName;
     private String phoneNumber;
     private String email;
-   // private WalletUsersDto walletUser;
+    private WalletUserDto walletUser;
 }

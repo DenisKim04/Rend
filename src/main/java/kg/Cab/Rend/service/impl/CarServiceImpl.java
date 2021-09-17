@@ -51,6 +51,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public CarDto findByNumCar(String numCar) {
+        Car car = carRepository.findByNumCar(numCar);
+        return CarMapper.INSTANCE.carDto(car);
+    }
+
+    @Override
     public CarDto findById(Long id) {
         Car car = carRepository.findById(id).orElse(null);
         if(car == null){

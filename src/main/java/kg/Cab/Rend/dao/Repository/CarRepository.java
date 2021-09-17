@@ -17,6 +17,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByName(String name);
 
+    Car findByNumCar(String numCar);
 
     List<Car> findByYear(Short year);
 

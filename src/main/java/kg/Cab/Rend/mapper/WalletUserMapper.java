@@ -18,7 +18,7 @@ public interface WalletUserMapper {
 
     List<WalletUserDto> toUserDtoList(List<WalletUser> walletUserList);
 
-    // Перевод обратно в User
+    // Перевод обратно в WalletUser
     WalletUser toUser(WalletUserDto walletUserDto);
 
     List<WalletUser> toUserList(List<WalletUserDto> walletUserDtoList);

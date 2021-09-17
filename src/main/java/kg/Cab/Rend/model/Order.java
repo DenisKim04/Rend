@@ -3,12 +3,9 @@ package kg.Cab.Rend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
-
 import javax.persistence.*;
-
-import java.math.BigDecimal;
 import java.util.Date;
+
 
 @Entity
 @Table(name = "orders")

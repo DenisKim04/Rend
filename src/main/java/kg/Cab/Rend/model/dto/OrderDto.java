@@ -1,12 +1,9 @@
 package kg.Cab.Rend.model.dto;
 
-import kg.Cab.Rend.model.Car;
-import kg.Cab.Rend.model.LocationRend;
-import kg.Cab.Rend.model.User;
+
 import lombok.Data;
 import java.util.Date;
-
-
+import java.util.List;
 
 
 @Data

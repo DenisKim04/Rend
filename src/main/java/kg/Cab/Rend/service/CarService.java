@@ -12,7 +12,9 @@ public interface CarService {
 
      List<CarDto> findAll();
 
-    CarDto findById(Long id);
+     CarDto findByNumCar(String numCar);
+
+     CarDto findById(Long id);
 
      List<CarDto> allName(String name);
 

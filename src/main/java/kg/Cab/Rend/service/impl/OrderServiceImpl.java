@@ -14,7 +14,6 @@ import kg.Cab.Rend.model.object.GetFromFront;
 import kg.Cab.Rend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -142,6 +141,13 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> find() {
         List<Order> orderList = orderRepository.findAll();
         return OrderMapper.INSTANCE.orderListToDto(orderList);
+    }
+
+    @Override
+    public List<OrderDto> choseCars(List<String> numCars) {
+
+
+        return null;
     }
 }
 

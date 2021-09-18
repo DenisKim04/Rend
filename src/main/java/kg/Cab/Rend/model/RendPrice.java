@@ -16,7 +16,7 @@ import java.util.Date;
 public class RendPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private final Long id;
     private double price;
     private Date startDate;
     private Date endDate;

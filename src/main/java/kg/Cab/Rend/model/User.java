@@ -10,15 +10,15 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private final Long id;
     private String name;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "phone_number")
     private String phoneNumber;
     private String email;
-    @OneToOne
-    @JoinColumn(name = "waller_user_id")
+    @ManyToOne
+    @JoinColumn(name = "wallet_user_id")
     private WalletUser walletUser;
 
 }

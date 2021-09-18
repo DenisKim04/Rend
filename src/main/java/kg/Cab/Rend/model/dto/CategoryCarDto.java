@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CategoryCarDto {
-    private Long id;
+    private final Long id;
     private String categoryName;
 
 }

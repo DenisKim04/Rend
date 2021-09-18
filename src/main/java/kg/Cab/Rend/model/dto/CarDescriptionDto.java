@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CarDescriptionDto {
-    private Long id;
+    private final Long id;
     private String typeOfDrive;
     private String side;
     private String fuel;

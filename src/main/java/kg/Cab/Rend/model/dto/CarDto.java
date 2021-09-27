@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class CarDto {
-    private final Long id;
+    private Long id;
     private String name;
     private String numCar;
     private Short year;

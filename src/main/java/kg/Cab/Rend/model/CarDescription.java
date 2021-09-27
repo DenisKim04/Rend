@@ -14,7 +14,7 @@ public class CarDescription {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PROTECTED)
-    private final Long id;
+    private Long id;
     private String typeOfDrive;
     private String side;
     private String fuel;

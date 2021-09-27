@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class LocationRend {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
     private String Street;
     private int numNous;
 

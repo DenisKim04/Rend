@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private LocationRendService locationRendService;
 
 
+
     private UserDto GetFromFrontToUser(GetFromFront getFromFront) {
         UserDto user = new UserDto();
         user.setName(getFromFront.getName());
@@ -88,7 +89,8 @@ public class OrderServiceImpl implements OrderService {
         LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
         orderDto.setTotalSum((car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate())));
         orderDto.setTotalSum(orderDto.getTotalSum()-discounts(sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()),orderDto.getTotalSum()));
-        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());
+        // подчет оплаты
+        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());// вычит денег из кошелька
         orderDto.setCar(car);
         orderDto.setUser(user);
         orderDto.setStartDateRent(getFromFront.getStartDate());
@@ -117,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
     private  double salePrice(double percentSales,double totalSum){
-        double totalSumPostSales = totalSum*percentSales/100;
+        double totalSumPostSales = totalSum * percentSales/100;
         return totalSumPostSales;
     }
 

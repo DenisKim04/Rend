@@ -17,9 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     public static final String CAR = "Cars";
-    public static final String CAR_DESCRIPTION = "Car description";
-    public static final String CATEGORY_CAR = "Category car";
-    public static final String LOCATION_REND = "Location rend";
+    public static final String CAR_DESCRIPTION = "Car_description";
+    public static final String CATEGORY_CAR = "Category_car";
+    public static final String LOCATION_REND = "Location_rend";
     public static final String USER = "User";
     public static final String ORDER = "Order";
     public static final String REND_PRICE = "Rend_price";

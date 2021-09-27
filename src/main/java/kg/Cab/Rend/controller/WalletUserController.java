@@ -5,10 +5,7 @@ import kg.Cab.Rend.configuretions.Swagger2Config;
 import kg.Cab.Rend.model.dto.WalletUserDto;
 import kg.Cab.Rend.service.WalletUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {Swagger2Config.WALLET_USER})
 @RestController
@@ -17,8 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class WalletUserController {
     @Autowired
     WalletUserService walletUserService;
-    @PostMapping
-    public WalletUserDto saveWalletUsers(){
-        return null;
+    @PostMapping("SaveWaller")
+    public WalletUserDto saveWalletUsers(@RequestBody WalletUserDto walletUserDto){
+
+        return walletUserService.saveWalletUser(walletUserDto);
+    }
+    @GetMapping("findById")
+    public WalletUserDto findById(@RequestParam Long id){
+        return walletUserService.findWalletUserById(id);
     }
 }

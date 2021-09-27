@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class OrderDto {
-    private final Long id;
+    private Long id;
     private UserDto user;
     private CarDto car;
     private LocationRendDto pleaseGet;

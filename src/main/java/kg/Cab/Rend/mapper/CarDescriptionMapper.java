@@ -14,8 +14,6 @@ public interface CarDescriptionMapper {
     //->
     CarDescription carDescriptionTo(CarDescriptionDto carDescriptionDto);
 
-
-
     //<-
     CarDescriptionDto carDescriptionToDto(CarDescription carDescription);
 

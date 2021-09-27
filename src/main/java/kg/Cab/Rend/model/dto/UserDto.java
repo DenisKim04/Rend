@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class UserDto {
-    private final Long id;
+    private Long id;
     private String name;
     private String lastName;
     private String phoneNumber;
     private String email;
     private WalletUserDto walletUser;
+
 }

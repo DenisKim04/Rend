@@ -1,8 +1,10 @@
 package kg.Cab.Rend.service.impl;
 
 import kg.Cab.Rend.dao.Repository.UserRepository;
+import kg.Cab.Rend.dao.Repository.WalletUserRepository;
 import kg.Cab.Rend.mapper.UserMapper;
 import kg.Cab.Rend.model.User;
+import kg.Cab.Rend.model.WalletUser;
 import kg.Cab.Rend.model.dto.UserDto;
 import kg.Cab.Rend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private WalletUserServiceImpl walletUserServiceImpl;
 
     @Override
     public UserDto saveUser(UserDto userDto) {
         String checkTruerEmail = userDto.getEmail().substring(-9,userDto.getEmail().length());
         if (checkTruerEmail.equals("@gmail.com")&& checkTruerEmail.equals("@mail.ru")){
         User user = UserMapper.INSTANCE.toUser(userDto);
+        walletUserServiceImpl.saveWalletUser(userDto.getWalletUser());
         User user1 = userRepository.save(user);
         return UserMapper.INSTANCE.toUserDto(user1);
         }else {

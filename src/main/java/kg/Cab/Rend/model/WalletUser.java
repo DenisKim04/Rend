@@ -17,8 +17,9 @@ import java.util.Date;
 public class WalletUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
     private Date startDate;
     private Date endDate;
     private double money;
+    private String numCart;
 }

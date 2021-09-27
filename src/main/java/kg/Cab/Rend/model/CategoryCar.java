@@ -14,6 +14,6 @@ import javax.persistence.*;
 public class CategoryCar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
     private String categoryName;
 }

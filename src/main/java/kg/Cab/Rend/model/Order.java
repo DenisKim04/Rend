@@ -15,7 +15,7 @@ import java.util.Date;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

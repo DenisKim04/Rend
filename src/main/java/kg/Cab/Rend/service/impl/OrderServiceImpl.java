@@ -48,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto examinationOrder(GetFromFront getFromFront) {           // проверка на наличие был ли рание зарегистрован ползователь
         CarDto car = carService.findById(getFromFront.getCarId());
+        OrderDto orderDtoSaver = new OrderDto();
         if (car.isActive() != false) {
             car = carService.updateActive(StatusCar.RENTED, false, car.getId());
         } else {
@@ -57,12 +58,12 @@ public class OrderServiceImpl implements OrderService {
         UserDto finderUser = userService.finUserByEmail(getFromFront.getEmail());
         if (finderUser == null) {                      // в случии если пользователя нет то полльзователь сохраняется в базе данных
             userDto = userService.saveUser(userDto);  // для того чтолбы занать кто заказал машину
-            OrderDto orderDto = new OrderDto();
-            return orderDto = saverOrders(car, userDto, getFromFront);
+            return orderDtoSaver = saverOrders(car, userDto, getFromFront);
         } else {
-            OrderDto orderDto = new OrderDto();
-            return orderDto = saverOrders(car, userDto, getFromFront);
+
+            return orderDtoSaver = saverOrders(car, userDto, getFromFront);
         }
+
     }
 
     private double sumDate(Date startDate, Date endDate) {

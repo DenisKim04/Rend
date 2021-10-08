@@ -33,6 +33,11 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByCategoryCar(CategoryCar categoryCar);
 
+
+
+    //@Query(value = "SELECT * FROM cars c WHERE c.num_car == ?1",nativeQuery = true)
+    //Car findByNum (@Param("num_car") String numCar);
+
     @Query(value = "select * from cars c Join rend_price rp on c.rend_price_id=rp.id where rp.price >= ?1",nativeQuery = true)
     List<Car>findByPrice(@Param("price")double price);
     @Query(value = "SELECT * FROM cars c WHERE c.year >= ?1", nativeQuery = true)

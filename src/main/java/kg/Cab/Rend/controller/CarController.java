@@ -42,7 +42,10 @@ public class CarController {
     public List<CarDto> findByName(@RequestParam String car) {
         return carService.allName(car);
     }
-    
+    @GetMapping("/findNumCar")
+    public CarDto findNumCar(@RequestParam String numCar){
+        return carService.findByNumCar(numCar);
+    }
 
     @GetMapping("/findYears")
     public List<CarDto> findYearsCar(@RequestParam Short year) {

@@ -31,6 +31,12 @@ public class CarDescriptionServiceImpl implements CarDescriptionService {
     }
 
     @Override
+    public CarDescriptionDto findById(Long id) {
+        CarDescription carDescriptionFinder = carDescriptionRepository.getById(id);
+        return CarDescriptionMapper.INSTANCE.carDescriptionToDto(carDescriptionFinder);
+    }
+
+    @Override
     public CarDescriptionDto update(CarDescriptionDto carDescriptionDto, Long id) {
         CarDescription carDescription = CarDescriptionMapper.INSTANCE.carDescriptionTo(carDescriptionDto);
         if (carDescriptionRepository.existsById(id)) {

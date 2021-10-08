@@ -46,9 +46,9 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderDto examinationOrder(GetFromFront getFromFront) {           // проверка на наличие был ли рание зарегистрован ползователь
+    public OrderDto saveExaminationOrder(GetFromFront getFromFront) {           // проверка на наличие был ли рание зарегистрован ползователь
         CarDto car = carService.findById(getFromFront.getCarId());
-        OrderDto orderDtoSaver = new OrderDto();
+        OrderDto orderDtoSaver ;
         if (car.isActive() != false) {
             car = carService.updateActive(StatusCar.RENTED, false, car.getId());
         } else {
@@ -89,9 +89,10 @@ public class OrderServiceImpl implements OrderService {
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
         LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
         orderDto.setTotalSum((car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate())));
-        orderDto.setTotalSum(orderDto.getTotalSum()-discounts(sumDate(getFromFront.getStartDate(),getFromFront.getEndDate()),orderDto.getTotalSum()));
-        // подчет оплаты
-        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser().getMoney()-orderDto.getTotalSum());// вычит денег из кошелька
+        orderDto.setTotalSum(orderDto.getTotalSum()-discounts(sumDate(
+                getFromFront.getStartDate(),getFromFront.getEndDate()),orderDto.getTotalSum()));  // подчет оплаты
+        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser()
+                .getMoney()-orderDto.getTotalSum());                                           // вычит денег из кошелька
         orderDto.setCar(car);
         orderDto.setUser(user);
         orderDto.setStartDateRent(getFromFront.getStartDate());
@@ -122,6 +123,7 @@ public class OrderServiceImpl implements OrderService {
     private  double salePrice(double percentSales,double totalSum){
         double totalSumPostSales = totalSum * percentSales/100;
         return totalSumPostSales;
+
     }
 
     @Override

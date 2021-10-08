@@ -18,20 +18,29 @@ public class CategoryCarServiceImpl implements CategoryCarService {
 
     @Override
     public CategoryCarDto findById(Long id) {
-        CategoryCar categoryCar = categoryCarRepository.findById(id).get();
+        CategoryCar categoryCar = categoryCarRepository.getById(id);
         return CategoryCarMapper.INSTANCE.categoryCarDto(categoryCar);
     }
 
     @Override
-    public CategoryCarDto saveCategoryCar(CategoryCarDto car) {
-        CategoryCar categoryCar = CategoryCarMapper.INSTANCE.categoryCarDto(car);
-      CategoryCar car1 = categoryCarRepository.save(categoryCar);
-        return CategoryCarMapper.INSTANCE.categoryCarDto(car1);
+    public CategoryCarDto saveCategoryCar(CategoryCarDto categoryCar) {
+        CategoryCar categoryCars = CategoryCarMapper.INSTANCE.categoryCarDto(categoryCar);
+          CategoryCar carSaver = categoryCarRepository.save(categoryCars);
+
+        return CategoryCarMapper.INSTANCE.categoryCarDto(carSaver);
     }
 
     @Override
     public List<CategoryCarDto> findCategoryCar() {
         List<CategoryCar> categoryCars = categoryCarRepository.findAll();
         return CategoryCarMapper.INSTANCE.listCategoryCarDto(categoryCars);
+    }
+
+
+
+    @Override
+    public CategoryCarDto findByCategoryName(String categoryName) {
+        CategoryCar categoryCarFinder = categoryCarRepository.findCategoryName(categoryName);
+        return CategoryCarMapper.INSTANCE.categoryCarDto(categoryCarFinder);
     }
 }

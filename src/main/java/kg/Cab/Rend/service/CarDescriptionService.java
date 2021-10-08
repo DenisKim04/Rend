@@ -9,5 +9,7 @@ public interface CarDescriptionService {
 
     List<CarDescriptionDto> findAll();
 
+    CarDescriptionDto findById(Long id);
+
     CarDescriptionDto update(CarDescriptionDto carDescriptionDto,Long id);
 }

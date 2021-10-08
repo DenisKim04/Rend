@@ -32,13 +32,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
-   //loop automation
-    private UserDto LoopSaverUser (){
-        for (int x = 0;x == 3;x++){
 
-        }
-        return null;
-    }
     @Override
     public List<UserDto> findAll() {
         List<User> user = userRepository.findAll();

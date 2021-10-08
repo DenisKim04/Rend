@@ -31,19 +31,33 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto saveCar(CarDto carDto) {
+
+        //   if(examinationCar(carDto)){
         CategoryCarDto categoryCarDto = categoryCarService.findById(carDto.getCategoryCar().getId());
         carDto.setCategoryCar(categoryCarDto);
         CarDescriptionDto carDescriptionDto = carDescriptionService.saveCarDescription(carDto.getCarDescription());
         carDto.setCarDescription(carDescriptionDto);
         RendPriceDto rendPriceDto = rendPriceService.saveRendPrice(carDto.getRendPrice());
         carDto.setRendPrice(rendPriceDto);
-        Car car2 = CarMapper.INSTANCE.car(carDto);
-        Car car1 = carRepository.save(car2);
-        return CarMapper.INSTANCE.carDto(car1);
-
+        Car carFromDto = CarMapper.INSTANCE.car(carDto);
+        Car carFinder = carRepository.findByNumCar(carDto.getNumCar());
+        if (carFinder == null ){
+        Car carSaver = carRepository.save(carFromDto);
+        return CarMapper.INSTANCE.carDto(carSaver);
+    }else {
+            System.out.println("is num is have"+carDto.getNumCar() + " in BD");
+        }
+    return null;
 
     }
+    /*
+    private boolean examinationCar(CarDto carDto){
+        Car carFromDto = CarMapper.INSTANCE.car(carDto);
+        Car carFinder = carRepository.findByNumCar(carDto.getNumCar()).i;
+        return carFinder.getNumCar().equals(carDto.getNumCar());
 
+    }
+    */
     @Override
     public List<CarDto> findAll() {
         List<Car> cars = carRepository.findAll();

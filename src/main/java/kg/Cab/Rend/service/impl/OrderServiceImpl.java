@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private LocationRendService locationRendService;
 
-    UserDto CreatorUser;
+    private UserDto CreatorUser;
     private UserDto GetFromFrontToUser(GetFromFront getFromFront) {
         CreatorUser.setName(getFromFront.getName());
         CreatorUser.setLastName(getFromFront.getLastName());
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 
         return 0;
     }
-    OrderDto orderDtoForSave;
+    private OrderDto orderDtoForSave;
     private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
 
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    Date dateTimeToReturn = new Date();
+    private Date dateTimeToReturn = new Date();
     @Override
     public OrderDto returnOrder(OrderDto orderDto, Long id) {
         if (orderRepository.existsById(id)) {

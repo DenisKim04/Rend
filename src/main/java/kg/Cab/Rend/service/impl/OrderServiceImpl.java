@@ -60,10 +60,9 @@ public class OrderServiceImpl implements OrderService {
         return orderDtoSaver = saverOrders(car, userDto, getFromFront);
 
     }
-
+    SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
     private double sumDate(Date startDate, Date endDate) {
         try {
-            SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
             String CurrentDate = dates.format(startDate.getTime());
             String FinalDate = dates.format(endDate.getTime());
             Date date1 = dates.parse(CurrentDate);

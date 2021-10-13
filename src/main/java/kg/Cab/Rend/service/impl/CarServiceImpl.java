@@ -39,8 +39,10 @@ public class CarServiceImpl implements CarService {
         carDto.setCarDescription(carDescriptionDto);
         RendPriceDto rendPriceDto = rendPriceService.saveRendPrice(carDto.getRendPrice());
         carDto.setRendPrice(rendPriceDto);
+
         Car carFromDto = CarMapper.INSTANCE.car(carDto);
         Car carFinder = carRepository.findByNumCar(carDto.getNumCar());
+
         if (carFinder == null ){
         Car carSaver = carRepository.save(carFromDto);
         return CarMapper.INSTANCE.carDto(carSaver);

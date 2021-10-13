@@ -45,17 +45,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto saveExaminationOrder(GetFromFront getFromFront) {  // проверка на наличие был ли рание зарегистрован ползователь
-        CarDto car = carService.findById(getFromFront.getCarId());
         OrderDto orderDtoSaver;
+        CarDto car = carService.findById(getFromFront.getCarId());
         if (car.isActive() != false) {
             car = carService.updateActive(StatusCar.RENTED, false, car.getId());
         } else {
+
             System.out.println("These car is rented");
+            return null;
         }
         UserDto userDto = GetFromFrontToUser(getFromFront);
         UserDto finderUser = userService.finUserByEmail(getFromFront.getEmail());
         if (finderUser == null) {                      // в случии если пользователя нет то полльзователь сохраняется в базе данных
-            userDto = userService.saveUser(userDto);  // для того чтолбы занать кто заказал машину
+            userDto = userService.saveUser(userDto);   // для того чтолбы занать кто заказал машину
         }
         return orderDtoSaver = saverOrders(car, userDto, getFromFront);
 

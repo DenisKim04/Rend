@@ -14,6 +14,7 @@ import kg.Cab.Rend.model.object.GetFromFront;
 import kg.Cab.Rend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,23 +33,20 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private LocationRendService locationRendService;
 
-
-
+    UserDto CreatorUser;
     private UserDto GetFromFrontToUser(GetFromFront getFromFront) {
-        UserDto user = new UserDto();
-        user.setName(getFromFront.getName());
-        user.setLastName(getFromFront.getLastName());
-        user.setEmail(getFromFront.getEmail());
-        user.setPhoneNumber(getFromFront.getPhoneNumber());
-
-        return user;
+        CreatorUser.setName(getFromFront.getName());
+        CreatorUser.setLastName(getFromFront.getLastName());
+        CreatorUser.setEmail(getFromFront.getEmail());
+        CreatorUser.setPhoneNumber(getFromFront.getPhoneNumber());
+        return CreatorUser;
     }
 
 
     @Override
-    public OrderDto saveExaminationOrder(GetFromFront getFromFront) {           // проверка на наличие был ли рание зарегистрован ползователь
+    public OrderDto saveExaminationOrder(GetFromFront getFromFront) {  // проверка на наличие был ли рание зарегистрован ползователь
         CarDto car = carService.findById(getFromFront.getCarId());
-        OrderDto orderDtoSaver ;
+        OrderDto orderDtoSaver;
         if (car.isActive() != false) {
             car = carService.updateActive(StatusCar.RENTED, false, car.getId());
         } else {
@@ -58,11 +56,8 @@ public class OrderServiceImpl implements OrderService {
         UserDto finderUser = userService.finUserByEmail(getFromFront.getEmail());
         if (finderUser == null) {                      // в случии если пользователя нет то полльзователь сохраняется в базе данных
             userDto = userService.saveUser(userDto);  // для того чтолбы занать кто заказал машину
-            return orderDtoSaver = saverOrders(car, userDto, getFromFront);
-        } else {
-
-            return orderDtoSaver = saverOrders(car, userDto, getFromFront);
         }
+        return orderDtoSaver = saverOrders(car, userDto, getFromFront);
 
     }
 
@@ -83,54 +78,60 @@ public class OrderServiceImpl implements OrderService {
 
         return 0;
     }
-
+    OrderDto orderDtoForSave;
     private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
-        OrderDto orderDto = new OrderDto();
+
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
+
         LocationRendDto locationRendSet = locationRendService.findById(getFromFront.getPleaseSet().getId());
-        orderDto.setTotalSum((car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(),getFromFront.getEndDate())));
-        orderDto.setTotalSum(orderDto.getTotalSum()-discounts(sumDate(
-                getFromFront.getStartDate(),getFromFront.getEndDate()),orderDto.getTotalSum()));  // подчет оплаты
-        orderDto.getUser().getWalletUser().setMoney(orderDto.getUser().getWalletUser()
-                .getMoney()-orderDto.getTotalSum());                                           // вычит денег из кошелька
-        orderDto.setCar(car);
-        orderDto.setUser(user);
-        orderDto.setStartDateRent(getFromFront.getStartDate());
-        orderDto.setEndDateRent(getFromFront.getEndDate());
-        orderDto.setPleaseGet(locationRendGet);
-        orderDto.setPleaseSet(locationRendSet);
-        Order DtoToOrder = OrderMapper.INSTANCE.toOrder(orderDto);
+
+        orderDtoForSave.setTotalSum((car.getRendPrice().getPrice() * sumDate(getFromFront.getStartDate(), getFromFront.getEndDate())));
+        orderDtoForSave.setTotalSum(orderDtoForSave.getTotalSum() - discounts(sumDate(
+                getFromFront.getStartDate(), getFromFront.getEndDate()), orderDtoForSave.getTotalSum()));  // подчет оплаты
+        orderDtoForSave.getUser().getWalletUser().setMoney(orderDtoForSave.getUser().getWalletUser()
+                .getMoney() - orderDtoForSave.getTotalSum());                                           // вычит денег из кошелька
+
+        orderDtoForSave.setCar(car);
+        orderDtoForSave.setUser(user);
+        orderDtoForSave.setStartDateRent(getFromFront.getStartDate());
+        orderDtoForSave.setEndDateRent(getFromFront.getEndDate());
+        orderDtoForSave.setPleaseGet(locationRendGet);
+        orderDtoForSave.setPleaseSet(locationRendSet);
+        Order DtoToOrder = OrderMapper.INSTANCE.toOrder(orderDtoForSave);
         Order orderSave = orderRepository.save(DtoToOrder);
         return OrderMapper.INSTANCE.orderToDto(orderSave);
     }
-    private double discounts(double sumOfDay, double totalSum){         // расчет скидки в зависмости до суммы дней
+
+    private double discounts(double sumOfDay, double totalSum) {         // расчет скидки в зависмости до суммы дней
         double sales;
-        if (sumOfDay > 7){
+        if (sumOfDay > 7) {
             sales = 5;
-            return salePrice(sales,totalSum);
+            return salePrice(sales, totalSum);
 
-        }else if(sumOfDay > 10){
+        } else if (sumOfDay > 10) {
             sales = 10;
-            return salePrice(sales,totalSum);
+            return salePrice(sales, totalSum);
 
-        }else if (sumOfDay > 13){
+        } else if (sumOfDay > 13) {
             sales = 20;
-            return salePrice(sales,totalSum);
-        }else {
-         return totalSum;
+            return salePrice(sales, totalSum);
+        } else {
+            return totalSum;
         }
     }
-    private  double salePrice(double percentSales,double totalSum){
-        double totalSumPostSales = totalSum * percentSales/100;
+
+    private double salePrice(double percentSales, double totalSum) {
+        double totalSumPostSales = totalSum * percentSales / 100;
         return totalSumPostSales;
 
     }
 
+    Date dateTimeToReturn = new Date();
     @Override
     public OrderDto returnOrder(OrderDto orderDto, Long id) {
         if (orderRepository.existsById(id)) {
             Order order = orderRepository.findById(id).get();
-            Date dateTimeToReturn = new Date();
+
             if (order.getEndDateRent().before(dateTimeToReturn)) {
                 CarDto carDto = carService.updateActive(StatusCar.AVAILABLE, true, id);
                 Car car = CarMapper.INSTANCE.car(carDto);

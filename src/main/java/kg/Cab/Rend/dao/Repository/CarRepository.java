@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
 
 
-    //@Query(value = "SELECT * FROM cars c WHERE c.num_car == ?1",nativeQuery = true)
+    // @Query(value = "SELECT * FROM cars c WHERE c.num_car == ?1",nativeQuery = true)
     //Car findByNum (@Param("num_car") String numCar);
 
     @Query(value = "select * from cars c Join rend_price rp on c.rend_price_id=rp.id where rp.price >= ?1",nativeQuery = true)
@@ -46,7 +47,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car>findBaggage(@Param("baggage")Byte baggage);
     @Query(value = "SELECT * FROM car cr ORDER BY cr.category_car_id",nativeQuery = true)
     List<Car> findAllByCategory();
- //   @Transactional
+   @Transactional
     @Modifying
     @Query(value = "UPDATE  cars c SET c.name = :name, c.year= :year, c.statusCar = :statusCar, c.seats= :seats, c.baggage = :baggage, c.doors = :doors, c.picketer = :picketer,", nativeQuery = true)
     public Car update(@Param("name") String name, @Param("year") short year,

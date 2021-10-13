@@ -27,12 +27,14 @@ public class CarDescriptionServiceImpl implements CarDescriptionService {
     @Override
     public List<CarDescriptionDto> findAll() {
         List<CarDescription> carDescriptions = carDescriptionRepository.findAll();
+
         return CarDescriptionMapper.INSTANCE.listCarDescriptionToDto(carDescriptions);
     }
 
     @Override
     public CarDescriptionDto findById(Long id) {
         CarDescription carDescriptionFinder = carDescriptionRepository.getById(id);
+
         return CarDescriptionMapper.INSTANCE.carDescriptionToDto(carDescriptionFinder);
     }
 

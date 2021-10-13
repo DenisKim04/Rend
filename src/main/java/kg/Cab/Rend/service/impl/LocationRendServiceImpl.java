@@ -16,6 +16,7 @@ public class LocationRendServiceImpl implements LocationRendService {
     LocationRendRepository locationRendRepository;
 
 
+
     @Override
     public LocationRendDto save(LocationRendDto locationRendDto) {
         LocationRend locationRend = LocationRendMapper.INSTANCE.toLocationRend(locationRendDto);

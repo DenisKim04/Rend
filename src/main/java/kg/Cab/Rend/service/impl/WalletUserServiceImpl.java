@@ -8,8 +8,6 @@ import kg.Cab.Rend.service.WalletUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WalletUserServiceImpl implements WalletUserService {
@@ -26,7 +24,7 @@ public class WalletUserServiceImpl implements WalletUserService {
 
     @Override
     public WalletUserDto findWalletUserById(Long id) {
-        WalletUser walletUser =walletUserRepository.getById(id);
+        WalletUser walletUser = walletUserRepository.getById(id);
         return WalletUserMapper.INSTANCE.toUserDto(walletUser);
     }
 }

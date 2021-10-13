@@ -12,6 +12,7 @@ public interface CategoryCarMapper {
     CategoryCarMapper INSTANCE  = Mappers.getMapper(CategoryCarMapper.class);
     //->
     CategoryCarDto categoryCarDto(CategoryCar categoryCar);
+
     List<CategoryCarDto> listCategoryCarDto(List<CategoryCar> categoryCars);
     //<-
     CategoryCar categoryCarDto(CategoryCarDto categoryCarDto);

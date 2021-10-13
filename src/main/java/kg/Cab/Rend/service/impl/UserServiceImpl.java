@@ -1,10 +1,8 @@
 package kg.Cab.Rend.service.impl;
 
 import kg.Cab.Rend.dao.Repository.UserRepository;
-import kg.Cab.Rend.dao.Repository.WalletUserRepository;
 import kg.Cab.Rend.mapper.UserMapper;
 import kg.Cab.Rend.model.User;
-import kg.Cab.Rend.model.WalletUser;
 import kg.Cab.Rend.model.dto.UserDto;
 import kg.Cab.Rend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

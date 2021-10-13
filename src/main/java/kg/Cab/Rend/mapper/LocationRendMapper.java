@@ -15,7 +15,6 @@ public interface LocationRendMapper {
     LocationRend toLocationRend(LocationRendDto dto);
 
 
-
     //<-
     LocationRendDto locationRendToDto(LocationRend locationRend);
 

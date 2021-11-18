@@ -1,6 +1,7 @@
 package kg.Cab.Rend.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 
@@ -17,7 +18,7 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String email;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_user_id")
     private WalletUser walletUser;
 

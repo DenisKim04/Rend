@@ -10,10 +10,8 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "wallet_user")
+@Table(name = "wallet_users")
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class WalletUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

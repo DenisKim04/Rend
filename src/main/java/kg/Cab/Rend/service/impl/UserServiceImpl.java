@@ -19,12 +19,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto userDto) {
-        String checkTruerEmail = userDto.getEmail().substring(-9,userDto.getEmail().length());
-        if (checkTruerEmail.equals("@gmail.com")&& checkTruerEmail.equals("@mail.ru")){
-        User user = UserMapper.INSTANCE.toUser(userDto);
+        String checkTruerEmail = userDto.getEmail().substring(userDto.getEmail().length()-10,userDto.getEmail().length());
+        if (checkTruerEmail.equals("@gmail.com") | checkTruerEmail.equals("@mail.ru")){
         walletUserServiceImpl.saveWalletUser(userDto.getWalletUser());
-        User user1 = userRepository.save(user);
-        return UserMapper.INSTANCE.toUserDto(user1);
+        User user = UserMapper.INSTANCE.toUser(userDto);
+        User userSaver = userRepository.save(user);
+            return UserMapper.INSTANCE.toUserDto(userSaver);
         }else {
             System.out.println("email is not found");
             return null;

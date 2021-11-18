@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private LocationRendService locationRendService;
 
     private UserDto CreatorUser;
+
     private UserDto GetFromFrontToUser(GetFromFront getFromFront) {
         CreatorUser.setName(getFromFront.getName());
         CreatorUser.setLastName(getFromFront.getLastName());
@@ -62,7 +63,9 @@ public class OrderServiceImpl implements OrderService {
         return orderDtoSaver = saverOrders(car, userDto, getFromFront);
 
     }
+
     private SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
+
     private double sumDate(Date startDate, Date endDate) {
         try {
             String CurrentDate = dates.format(startDate.getTime());
@@ -79,7 +82,9 @@ public class OrderServiceImpl implements OrderService {
 
         return 0;
     }
+
     private OrderDto orderDtoForSave;
+
     private OrderDto saverOrders(CarDto car, UserDto user, GetFromFront getFromFront) {
 
         LocationRendDto locationRendGet = locationRendService.findById(getFromFront.getPleaseGet().getId());
@@ -128,6 +133,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Date dateTimeToReturn = new Date();
+
     @Override
     public OrderDto returnOrder(OrderDto orderDto, Long id) {
         if (orderRepository.existsById(id)) {
@@ -156,6 +162,7 @@ public class OrderServiceImpl implements OrderService {
 
         return null;
     }
+
 }
 
 
